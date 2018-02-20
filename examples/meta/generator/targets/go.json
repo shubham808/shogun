@@ -1,0 +1,58 @@
+{
+  "Program": "package main\n\nimport(\n\"fmt\"\n$dependencies\n)\nfunc main()\n{\n$program\n}\n",
+  "Dependencies": {
+      "IncludeAllClasses": false,
+      "IncludeInterfacedClasses": true,
+      "IncludeEnums": true,
+      "IncludeGlobalFunctions": true,
+      "DependencyListElement": "\"$typeName\"",
+      "DependencyListElementEnum": "\"$includePath\"",
+      "DependencyListSeparator": "\n"
+  },
+  "Statement": "$statement\n",
+  "Comment": "//$comment\n",
+  "Init": {
+      "Construct": "$name := $typeName($arguments)$kwargs",
+      "Copy": "$name := $expr$kwargs",
+      "KeywordArguments": {
+          "List": "\n$elements",
+          "Element": "$name.put('$keyword', $expr)",
+          "Separator": "\n",
+          "InitialSeperatorWhenArgs>0": false
+      }
+  },
+  "Assign": "$identifier := $expr",
+  "Type": {
+      "Default": "$typeName"
+  },
+  "Expr": {
+      "StringLiteral": "\"$literal\"",
+      "CharLiteral": "'$literal'",
+      "BoolLiteral": {
+          "True": "TRUE",
+          "False": "FALSE"
+      },
+      "IntLiteral": "$number",
+      "RealLiteral": "$number",
+      "FloatLiteral": "$number",
+      "MethodCall": "$object.$method($arguments)",
+      "StaticCall": "$typeName.$method($arguments)",
+      "GlobalCall": "$method($arguments)",
+      "Identifier": "$identifier",
+      "Enum":"\"$value\""
+  },
+  "Element": {
+      "Access": {
+          "Vector": "$identifier[$indices]",
+          "Matrix": "$identifier[$indices]"
+      },
+      "Assign": {
+          "Vector": "$identifier[$indices] := $expr",
+          "Matrix": "$identifier[$indices] := $expr"
+      },
+      "ZeroIndexed": false
+  },
+  "Print": "fmt.println($expr)",
+  "OutputDirectoryName": "go",
+  "FileExtension": ".go"
+}
