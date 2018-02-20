@@ -125,6 +125,7 @@ if __name__ == "__main__":
     available_targets = [
         'cpp',
         'python',
+        'go',
         'java',
         'r',
         'octave',
