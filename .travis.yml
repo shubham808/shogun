@@ -3,13 +3,6 @@ language: cpp
 cache: ccache
 notifications:
   email: false
-  irc:
-    channels:
-      - "irc.freenode.org#shogun"
-    on_success: change
-    on_failure: always
-    template:
-      - "it's %{author}'s turn to pay the next round of drinks for the massacre he caused in %{repository}: %{build_url}"
 matrix:
   fast_finish: true
   include:
