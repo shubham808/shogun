@@ -60,7 +60,7 @@ matrix:
     - compiler: clang
       services: docker
       env:
-        - CMAKE_OPTIONS="-DINTERFACE_R=ON -DTRAVIS_DISABLE_UNIT_TESTS=ON -DTRAVIS_DISABLE_LIBSHOGUN_TESTS=ON"
+        - CMAKE_OPTIONS="-DINTERFACE_GO=ON -DTRAVIS_DISABLE_UNIT_TESTS=ON -DTRAVIS_DISABLE_LIBSHOGUN_TESTS=ON"
         - CC=clang
         - CXX=clang++
 #    - compiler: clang
