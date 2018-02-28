@@ -775,8 +775,7 @@ ocas_return_value_T svm_ocas_solver(
 			ocas.output_time += get_time() - start_time;
 			gap = (ocas.Q_P - ocas.Q_D) / CMath::abs(ocas.Q_P);
 			pb.print_absolute(
-				gap, -std::log10(gap), -std::log10(1),
-				-std::log10(TolRel));
+				gap, -std::log10(gap), -std::log10(1), -std::log10(TolRel));
 
 			xi = 0;
 			cut_length = 0;

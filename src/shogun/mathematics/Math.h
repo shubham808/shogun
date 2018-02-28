@@ -1,10 +1,10 @@
 /*
  * This software is distributed under BSD 3-clause license (see LICENSE file).
  *
- * Authors: Soeren Sonnenburg, Heiko Strathmann, Viktor Gal, Fernando Iglesias, 
- *          Sergey Lisitsyn, Sanuj Sharma, Soumyajit De, Shashwat Lal Das, 
- *          Thoralf Klein, Wu Lin, Chiyuan Zhang, Harshit Syal, Evan Shelhamer, 
- *          Philippe Tillet, Björn Esser, Yuyu Zhang, Abhinav Agarwalla, 
+ * Authors: Soeren Sonnenburg, Heiko Strathmann, Viktor Gal, Fernando Iglesias,
+ *          Sergey Lisitsyn, Sanuj Sharma, Soumyajit De, Shashwat Lal Das,
+ *          Thoralf Klein, Wu Lin, Chiyuan Zhang, Harshit Syal, Evan Shelhamer,
+ *          Philippe Tillet, Björn Esser, Yuyu Zhang, Abhinav Agarwalla,
  *          Saurabh Goyal
  */
 
@@ -679,22 +679,6 @@ class CMath : public CSGObject
 		COMPLEX128_STDMATH(cosh)
 		//@}
 
-		/**
-		 * @name Logarithmic functions
-		 */
-		//@{
-		/** Computes logarithm base 10 of input
-		 * @param v input
-		 * @return log base 10 of v
-		 */
-		static inline float64_t log10(float64_t v)
-		{
-			return std::log10(v);
-		}
-
-		/// log10(x), x being a complex128_t
-		COMPLEX128_STDMATH(log10)
-
 		/** Computes logarithm base 2 of input
 		 * @param v input
 		 * @return log base 2 of v
@@ -708,10 +692,6 @@ class CMath : public CSGObject
 		 * @param v input
 		 * @return log base e of v or ln(v)
 		 */
-		static inline float64_t log(float64_t v)
-		{
-			return std::log(v);
-		}
 
 		/// log(x), x being a complex128_t
 		COMPLEX128_STDMATH(log)
@@ -896,7 +876,8 @@ class CMath : public CSGObject
 			} while ((rand_s == 0) || (rand_s >= 1));
 
 			// the meat & potatos, and then the mean & standard deviation shifting...
-			ret = static_cast<float32_t>(rand_u*CMath::sqrt(-2.0*CMath::log(rand_s)/rand_s));
+			ret = static_cast<float32_t>(
+			    rand_u * CMath::sqrt(-2.0 * std::log(rand_s) / rand_s));
 			ret = std_dev*ret + mean;
 			return ret;
 		}
@@ -1089,7 +1070,7 @@ class CMath : public CSGObject
 				}
 			}
 
-			return X0+log(SGVector<T>::sum(values_without_X0)+1);
+			return X0 + std::log(SGVector<T>::sum(values_without_X0) + 1);
 		}
 
 		/** Computes \f$\log(\frac{1}{n}\sum_{i=1}^n \exp(x_i))\f$ for given
@@ -1101,7 +1082,7 @@ class CMath : public CSGObject
 		template <class T>
 		static T log_mean_exp(SGVector<T> values)
 		{
-			return log_sum_exp(values) - log(values.vlen);
+			return log_sum_exp(values) - std::log(values.vlen);
 		}
 
 		/** Performs a bubblesort on a given matrix a.
@@ -1821,8 +1802,8 @@ class CMath : public CSGObject
 				return p;
 			diff = p - q;
 			if (diff > 0)
-				return diff > LOGRANGE? p : p + log(1 + exp(-diff));
-			return -diff > LOGRANGE? q : q + log(1 + exp(diff));
+				return diff > LOGRANGE ? p : p + std::log(1 + exp(-diff));
+			return -diff > LOGRANGE ? q : q + std::log(1 + exp(diff));
 		}
 #endif
 #ifdef USE_LOGSUMARRAY
@@ -2107,7 +2088,7 @@ void CMath::qsort_backward_index(T1* output, T2* index, int32_t size)
 	template <class T>
 void CMath::nmin(float64_t* output, T* index, int32_t size, int32_t n)
 {
-	if (6*n*size<13*size*CMath::log(size))
+	if (6 * n * size < 13 * size * std::log(size))
 		for (int32_t i=0; i<n; i++)
 			min(&output[i], &index[i], size-i);
 	else

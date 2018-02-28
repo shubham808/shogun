@@ -22,7 +22,7 @@ TEST(CMath, complex_test)
 	result=CMath::log(a);
 	EXPECT_NEAR(result.real(), 2.05543693208665567695, 1E-14);
 	EXPECT_NEAR(result.imag(), 0.87605805059819341629, 1E-14);
-	result=std::log10(a);
+	result = std::log10(a);
 	EXPECT_NEAR(result.real(), 0.89266491750538345951, 1E-14);
 	EXPECT_NEAR(result.imag(), 0.38046717720171513433, 1E-14);
 	result=CMath::exp(a);

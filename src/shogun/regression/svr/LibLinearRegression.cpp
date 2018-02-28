@@ -304,8 +304,8 @@ void CLibLinearRegression::solve_l2r_l1l2_svr(SGVector<float64_t>& w, const libl
 		iter++;
 
 		pb.print_absolute(
-		    Gnorm1_new, -std::log10(Gnorm1_new),
-		    -std::log10(eps * Gnorm1_init), -std::log10(Gnorm1_init));
+		    Gnorm1_new, -std::log10(Gnorm1_new), -std::log10(eps * Gnorm1_init),
+		    -std::log10(Gnorm1_init));
 
 		if(Gnorm1_new <= eps*Gnorm1_init)
 		{
