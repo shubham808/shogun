@@ -668,22 +668,6 @@ class CMath : public CSGObject
 		COMPLEX128_STDMATH(cosh)
 		//@}
 
-		/**
-		 * @name Logarithmic functions
-		 */
-		//@{
-		/** Computes logarithm base 10 of input
-		 * @param v input
-		 * @return log base 10 of v
-		 */
-		static inline float64_t log10(float64_t v)
-		{
-			return std::log10(v);
-		}
-
-		/// log10(x), x being a complex128_t
-		COMPLEX128_STDMATH(log10)
-
 		/** Computes logarithm base 2 of input
 		 * @param v input
 		 * @return log base 2 of v

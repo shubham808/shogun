@@ -367,8 +367,8 @@ int8_t CGMNPLib::gmnp_imdm(float64_t *vector_c,
 
     /* print info */
 	pb.print_absolute(
-		CMath::abs((UB - LB) / UB), -CMath::log10(CMath::abs(UB - LB)),
-		-CMath::log10(1.0), -CMath::log10(tolrel));
+		CMath::abs((UB - LB) / UB), -std::log10(CMath::abs(UB - LB)),
+		-std::log10(1.0), -std::log10(tolrel));
 
 	if (verb && (t % verb) == 0)
 	{

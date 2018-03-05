@@ -660,8 +660,7 @@ bool CLaRank::train_machine(CFeatures* data)
 		SG_DEBUG("Train error (online): %f%%\n", (tr_err / nb_train) * 100)
 		gap = computeGap ();
 		pb.print_absolute(
-		    gap, -CMath::log10(gap), -CMath::log10(DBL_MAX),
-		    -CMath::log10(get_C()));
+		    gap, -std::log10(gap), -std::log10(DBL_MAX), -std::log10(get_C()));
 
 		if (!batch_mode)        // skip stopping criteria if online mode
 			gap = 0;

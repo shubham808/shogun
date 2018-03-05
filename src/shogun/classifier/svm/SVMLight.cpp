@@ -908,8 +908,8 @@ int32_t CSVMLight::optimize_to_convergence(int32_t* docs, int32_t* label, int32_
 		  worstmaxdiff=bestmaxdiff;
 
 	  pb.print_absolute(
-		  bestmaxdiff, -CMath::log10(bestmaxdiff), -CMath::log10(worstmaxdiff),
-		  -CMath::log10(epsilon));
+		  bestmaxdiff, -std::log10(bestmaxdiff), -std::log10(worstmaxdiff),
+		  -std::log10(epsilon));
 
 	  /* Terminate loop */
 	  if (m_max_train_time > 0 && start_time.cur_time_diff() > m_max_train_time) {

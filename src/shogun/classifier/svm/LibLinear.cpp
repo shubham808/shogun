@@ -405,7 +405,7 @@ void CLibLinear::solve_l2r_l1l2_svc(
 
 		float64_t gap=PGmax_new - PGmin_new;
 		pb.print_absolute(
-		    gap, -CMath::log10(gap), -CMath::log10(1), -CMath::log10(eps));
+		    gap, -std::log10(gap), -std::log10(1), -std::log10(eps));
 
 		if (gap <= eps)
 		{
@@ -760,8 +760,8 @@ void CLibLinear::solve_l1r_l2_svc(
 		iter++;
 
 		pb.print_absolute(
-		    Gmax_new, -CMath::log10(Gmax_new), -CMath::log10(Gmax_init),
-		    -CMath::log10(eps * Gmax_init));
+		    Gmax_new, -std::log10(Gmax_new), -std::log10(Gmax_init),
+		    -std::log10(eps * Gmax_init));
 
 		if (Gmax_new <= eps * Gmax_init)
 		{
@@ -1137,8 +1137,8 @@ void CLibLinear::solve_l1r_lr(
 		iter++;
 
 		pb.print_absolute(
-		    Gmax_new, -CMath::log10(Gmax_new), -CMath::log10(Gmax_init),
-		    -CMath::log10(eps * Gmax_init));
+		    Gmax_new, -std::log10(Gmax_new), -std::log10(Gmax_init),
+		    -std::log10(eps * Gmax_init));
 
 		if (Gmax_new <= eps * Gmax_init)
 		{
@@ -1344,8 +1344,8 @@ void CLibLinear::solve_l2r_lr_dual(
 		iter++;
 
 		pb.print_absolute(
-		    Gmax, -CMath::log10(Gmax), -CMath::log10(Gmax_init),
-		    -CMath::log10(eps * Gmax_init));
+		    Gmax, -std::log10(Gmax), -std::log10(Gmax_init),
+		    -std::log10(eps * Gmax_init));
 
 		if (Gmax < eps)
 			break;

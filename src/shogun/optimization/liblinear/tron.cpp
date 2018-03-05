@@ -160,8 +160,8 @@ void CTron::tron(float64_t *w, float64_t max_train_time)
 			if (gnorm < eps*gnorm1)
 				break;
 			pb.print_absolute(
-			    gnorm, -CMath::log10(gnorm), -CMath::log10(1),
-			    -CMath::log10(eps * gnorm1));
+			    gnorm, -std::log10(gnorm), -std::log10(1),
+			    -std::log10(eps * gnorm1));
 		}
 		if (f < -1.0e+32)
 		{

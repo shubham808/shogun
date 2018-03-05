@@ -543,7 +543,7 @@ void Solver::Solve(
 		}
 
 		pb.print_absolute(
-			gap, -CMath::log10(gap), -CMath::log10(1), -CMath::log10(eps));
+			gap, -std::log10(gap), -std::log10(1), -std::log10(eps));
 
 		++iter;
 
