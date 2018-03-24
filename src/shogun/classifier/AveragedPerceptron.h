@@ -1,7 +1,7 @@
 /*
  * This software is distributed under BSD 3-clause license (see LICENSE file).
  *
- * Authors: Soeren Sonnenburg, Sergey Lisitsyn, Fernando Iglesias, 
+ * Authors: Soeren Sonnenburg, Sergey Lisitsyn, Fernando Iglesias,
  *          Saurabh Goyal
  */
 
@@ -75,6 +75,13 @@ protected:
 		 * @return whether training was successful
 		 */
 		virtual bool train_machine(CFeatures* data=NULL);
+
+		virtual void on_pause()
+		{
+			m_pause_computation_flag = true;
+			set_max_iter(max_iter+10);
+			resume_computation();
+		}
 
 	protected:
 		/** learning rate */
