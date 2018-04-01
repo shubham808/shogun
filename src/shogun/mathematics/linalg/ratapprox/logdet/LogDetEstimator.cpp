@@ -127,7 +127,7 @@ SGVector<float64_t> CLogDetEstimator::sample(index_t num_estimates)
 	samples.zero();
 	// TO DO: use openmp like this here->#pragma omp parallel for reduction(+:
 	// samples[:num_estimates])
-	for (index_t i = 0; i < num_estimates; i++)
+	for (index_t i = 0; i < num_estimates; ++i)
 	{
 		for (index_t j = 0; j < num_trace_samples; ++j)
 		{
@@ -168,7 +168,7 @@ SGMatrix<float64_t> CLogDetEstimator::sample_without_averaging(
 
 	// TO DO: use openmp #pragma omp parallel for reduction(+:
 	// samples[:num_estimates][:num_trace_samples])
-	for (index_t i = 0; i < num_estimates; i++)
+	for (index_t i = 0; i < num_estimates; ++i)
 	{
 		for (index_t j = 0; j < num_trace_samples; ++j)
 		{
