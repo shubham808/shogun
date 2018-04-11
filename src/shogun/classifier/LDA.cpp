@@ -60,10 +60,6 @@ CLDA::~CLDA()
 bool CLDA::train_machine(CFeatures *data)
 {
 	REQUIRE(m_labels, "Labels for the given features are not specified!\n")
-	REQUIRE(
-	    m_labels->get_label_type() == LT_BINARY,
-	    "The labels should of type CBinaryLabels! Provided type is %s \n",
-	    m_labels->get_name())
 
 	if(data)
 	{
