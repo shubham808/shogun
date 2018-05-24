@@ -9,6 +9,7 @@
 #ifdef HAVE_LAPACK
 #include <shogun/classifier/svm/NewtonSVM.h>
 #include <shogun/mathematics/Math.h>
+#include <shogun/base/progress.h>
 #include <shogun/mathematics/linalg/LinalgNamespace.h>
 #include <shogun/machine/LinearMachine.h>
 #include <shogun/features/DotFeatures.h>
@@ -80,6 +81,7 @@ bool CNewtonSVM::train_machine(CFeatures* data)
 	float64_t obj, *grad=SG_MALLOC(float64_t, x_d+1);
 	float64_t t;
 
+	auto pb = progress(range(num_iter));
 	while (iter <= num_iter)
 	{
 		COMPUTATION_CONTROLLERS
@@ -204,7 +206,10 @@ bool CNewtonSVM::train_machine(CFeatures* data)
 
 		if (newton_decrement*2<prec*obj)
 			break;
+
+		pb.print_progress();
 	}
+	pb.complete();
 
 	if (iter > num_iter)
 	{
