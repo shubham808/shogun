@@ -92,7 +92,7 @@ bool CKRRNystrom::solve_krr_system()
 					"of the number of data points (%d)\n", m_num_rkhs_basis, n);
 	}
 
-	SGVector<float64_t> y=((CRegressionLabels*)m_labels)->get_labels();
+	SGVector<float64_t> y=regression_labels(m_labels)->get_labels();
 	if (!y.data())
 		SG_ERROR("Labels not set.\n");
 	SGVector<int32_t> col=subsample_indices();
