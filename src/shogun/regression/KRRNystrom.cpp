@@ -54,6 +54,7 @@ CKRRNystrom::CKRRNystrom(float64_t tau, int32_t m, CKernel* k, CLabels* lab)
 void CKRRNystrom::init()
 {
 	m_num_rkhs_basis=0;
+	SG_ADD(&m_num_rkhs_basis, "num_rkhs_basis", "Number of rows/columns to sample",  MS_AVAILABLE);
 }
 
 SGVector<int32_t> CKRRNystrom::subsample_indices()

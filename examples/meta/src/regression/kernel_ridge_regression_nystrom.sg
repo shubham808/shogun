@@ -15,7 +15,7 @@ Kernel k = kernel("GaussianKernel", log_width=0.0)
 #![create_appropriate_kernel]
 
 #![create_instance]
-Machine nystrom = machine("KRRNystrom",tau=0.001, m=100, kernel=k, labels=labels_train)
+Machine nystrom = machine("KRRNystrom",tau=0.001, num_rkhs_basis=100, kernel=k, labels=labels_train)
 #![create_instance]
 
 #![train_and_apply]
