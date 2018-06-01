@@ -19,10 +19,12 @@ def classifier_featureblock_logistic_regression (fm_train=traindat,fm_test=testd
 		print("FeatureBlockLogisticRegression not available")
 		exit(0)
 
-	features = RealFeatures(hstack((traindat,traindat)))
-	labels = BinaryLabels(hstack((label_train,label_train)))
+	features = RealFeatures(traindat)
+	labels = BinaryLabels(label_train)
 
 	n_features = features.get_num_features()
+	print(n_features)
+	print(n_features//2)
 	block_one = IndexBlock(0,n_features//2)
 	block_two = IndexBlock(n_features//2,n_features)
 	block_group = IndexBlockGroup()
