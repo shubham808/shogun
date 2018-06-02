@@ -15,6 +15,11 @@
 #include <shogun/labels/RegressionLabels.h>
 #include <shogun/machine/Machine.h>
 
+#include <functional>
+#include <gtest/gtest.h>
+#include <rxcpp/rx-lite.hpp>
+#include <shogun/lib/Signal.h>
+
 using namespace shogun;
 
 extern LinearTestEnvironment* linear_test_env;
@@ -87,8 +92,7 @@ protected:
 	}
 
 	bool serialize_machine(
-	    CMachine* cmachine, std::string& filename,
-	    bool store_model_features = false)
+	    CMachine* cmachine, std::string& filename, bool store_model_features)
 	{
 		std::string class_name = cmachine->get_name();
 		filename = "shogun-unittest-trained-model-serialization-" + class_name +
@@ -103,6 +107,30 @@ protected:
 		SG_FREE(file);
 
 		return save_success;
+	}
+
+	bool test_serialization(bool store_model_features = false)
+	{
+		machine->set_labels(train_labels);
+		machine->train(train_feats);
+
+		auto predictions = wrap<CLabels>(machine->apply(test_feats));
+
+		std::string filename;
+		if (!serialize_machine(machine, filename, store_model_features))
+			return false;
+
+		if (!deserialize_machine(deserialized_machine, filename))
+			return false;
+
+		auto deserialized_predictions =
+		    wrap<CLabels>(deserialized_machine->apply(test_feats));
+
+		set_global_fequals_epsilon(1e-7);
+		if (!predictions->equals(deserialized_predictions))
+			return false;
+		set_global_fequals_epsilon(0);
+		return true;
 	}
 
 	bool deserialize_machine(CMachine* cmachine, std::string filename)
@@ -135,27 +163,31 @@ TYPED_TEST_CASE(TrainedMachineSerialization, MachineTypes);
 
 TYPED_TEST(TrainedMachineSerialization, Test)
 {
-	this->machine->set_labels(this->train_labels);
-	this->machine->train(this->train_feats);
+	EXPECT_TRUE(this->test_serialization());
+}
 
-	/* to avoid serialization of the data */
-	//	machine->set_features(NULL);
-	//	machine->set_labels(NULL);
+template <class T>
+class StoppedMachineSerialization : public TrainedModelSerializationFixture<T>
+{
+};
 
-	auto predictions = wrap<CLabels>(this->machine->apply(this->test_feats));
+TYPED_TEST_CASE(StoppedMachineSerialization, StoppableMachineTypes);
 
-	std::string filename;
-	ASSERT_TRUE(this->serialize_machine(this->machine, filename));
+TYPED_TEST(StoppedMachineSerialization, Test)
+{
+	int i = 0;
+	std::function<bool()> callback = [&i]() {
+		if (i >= 1)
+		{
+			get_global_signal()->get_subscriber()->on_next(SG_BLOCK_COMP);
+			return true;
+		}
+		i++;
+		return false;
+	};
 
-	ASSERT_TRUE(
-	    this->deserialize_machine(this->deserialized_machine, filename));
-
-	auto deserialized_predictions =
-	    wrap<CLabels>(this->deserialized_machine->apply(this->test_feats));
-
-	set_global_fequals_epsilon(1e-7);
-	ASSERT(predictions->equals(deserialized_predictions))
-	set_global_fequals_epsilon(0);
+	this->machine->set_callback(callback);
+	EXPECT_TRUE(this->test_serialization());
 }
 
 template <class T>
@@ -170,28 +202,8 @@ TYPED_TEST(TrainedKernelMachineSerialization, Test)
 {
 	CGaussianKernel* kernel = new CGaussianKernel(2.0);
 	this->machine->set_kernel(kernel);
-	this->machine->set_labels(this->train_labels);
-
-	this->machine->train(this->train_feats);
-
-	auto predictions = wrap<CLabels>(this->machine->apply(this->test_feats));
-
 	for (auto store_model_features : {false, true})
 	{
-		std::string filename;
-		ASSERT_TRUE(
-		    this->serialize_machine(
-		        this->machine, filename, store_model_features));
-
-		ASSERT_TRUE(
-		    this->deserialize_machine(this->deserialized_machine, filename));
-
-		auto deserialized_predictions =
-		    wrap<CLabels>(this->deserialized_machine->apply(this->test_feats));
-
-		// allow for lossy serialization format
-		set_global_fequals_epsilon(1e-6);
-		ASSERT(predictions->equals(deserialized_predictions))
-		set_global_fequals_epsilon(0);
+		EXPECT_TRUE(this->test_serialization(store_model_features));
 	}
 }

@@ -128,14 +128,16 @@ def generate_tests(input_file, config_file):
 
     test_machines_map = {
         'Machine': [],
-        'KernelMachine': []
+        'KernelMachine': [],
+        'StoppableMachine' : []
     }
 
     headers = ''
     for b, m in machines.items():
         test_machines_map[base_test_map[b]] += m.keys()
         headers += ''.join([include_template.format(v['include']) for v in m.values()])
-
+        
+    test_machines_map['StoppableMachine'] += test_machines_map['Machine']
     typelists = ''
     for k, v in test_machines_map.items():
         typelists += typelist_template.format(", ".join(v), k)

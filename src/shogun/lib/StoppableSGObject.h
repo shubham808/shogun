@@ -17,7 +17,7 @@ namespace shogun
 {
 #define COMPUTATION_CONTROLLERS                                                \
 	if (cancel_computation())                                                  \
-		break;                                                              \
+		break;                                                                 \
 	pause_computation();
 
 	/**
