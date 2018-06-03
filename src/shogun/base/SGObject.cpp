@@ -45,6 +45,7 @@
 #include <shogun/multiclass/ecoc/ECOCEncoder.h>
 #include <shogun/multiclass/ecoc/ECOCDecoder.h>
 #include <shogun/multiclass/MulticlassStrategy.h>
+#include <shogun/lib/IndexBlockRelation.h>
 
 
 namespace shogun

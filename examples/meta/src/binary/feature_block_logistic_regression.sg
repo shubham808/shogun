@@ -15,10 +15,11 @@ IndexBlock block_two(1, num_feats)
 IndexBlockGroup block_group()
 block_group.add_block(block_one)
 block_group.add_block(block_two)
+IndexBlockRelation p = IndexBlockRelation:obtain_from_generic(block_group)
 #![create_blocks_group]
 
 #![create_instance]
-Machine mtlr = machine("FeatureBlockLogisticRegression", z=0.1, labels=labels_train, feature_relation=block_group, regularization=1, tolerance=0.001)
+Machine mtlr = machine("FeatureBlockLogisticRegression", z=0.1, labels=labels_train, feature_relation=p, regularization=1, tolerance=0.001)
 #![create_instance]
 
 #![train_and_apply]

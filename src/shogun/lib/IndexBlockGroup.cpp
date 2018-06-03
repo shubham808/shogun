@@ -13,6 +13,7 @@ using namespace shogun;
 CIndexBlockGroup::CIndexBlockGroup() : CIndexBlockRelation()
 {
 	m_blocks = new CList(true);
+	SG_ADD(&m_blocks, "blocks", "Collection of blocks", MS_AVAILABLE);
 }
 
 CIndexBlockGroup::~CIndexBlockGroup()
