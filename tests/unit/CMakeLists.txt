@@ -77,9 +77,9 @@ ELSE()
 			ctags
 			WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
 			COMMENT "Generating trained_model_serialization_unittest.h")
-	LIST(APPEND SERIALIZATION_UNITTEST trained_model_serialization_unittest.h)
+	LIST(APPEND SERIALIZATION_UNITTEST ${CMAKE_CURRENT_BINARY_DIR}/trained_model_serialization_unittest.h)
 	LIST(APPEND SERIALIZATION_UNITTEST ${CMAKE_CURRENT_SOURCE_DIR}/base/trained_model_serialization_unittest.cc)
-	ADD_DEPENDENCIES(trained_model_serialization_unittest.h ${CMAKE_CURRENT_SOURCE_DIR}/base/trained_model_serialization_unittest.cc)
+	
 	
 ENDIF()
 
