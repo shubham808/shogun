@@ -333,6 +333,19 @@ class CMachine : public CStoppableSGObject
 			return false;
 		}
 
+		/** Continue Training
+		 *
+		 * NOT IMPLEMENTED!
+		 *
+		 * @return whether training was successful
+		 */
+		virtual bool continue_train()
+		{
+			SG_ERROR(
+			    "continue_train is not yet implemented for %s!\n", get_name());
+			return false;
+		}
+
 		/** Stores feature data of underlying model.
 		 * After this method has been called, it is possible to change
 		 * the machine's feature data and call apply(), which is then performed
