@@ -11,11 +11,6 @@
 
 using namespace shogun;
 
-#define COMPUTATION_CONTROLLERS                                                \
-	if (cancel_computation())                                                  \
-		continue;                                                              \
-	pause_computation();
-
 CStoppableSGObject::CStoppableSGObject() : CSGObject()
 {
 	m_cancel_computation = false;
@@ -55,6 +50,7 @@ void CStoppableSGObject::on_next()
 {
 	m_cancel_computation.store(true);
 	on_next_impl();
+	reset_computation_variables();
 }
 
 void CStoppableSGObject::on_pause()

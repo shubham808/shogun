@@ -17,7 +17,7 @@ namespace shogun
 {
 #define COMPUTATION_CONTROLLERS                                                \
 	if (cancel_computation())                                                  \
-		continue;                                                              \
+		break;                                                                 \
 	pause_computation();
 
 	/**
@@ -112,6 +112,8 @@ namespace shogun
 
 		/** Conditional variable to make threads wait */
 		std::condition_variable m_pause_computation;
+
+		std::condition_variable m_cancel;
 
 		/** Mutex used to pause threads */
 		std::mutex m_mutex;
